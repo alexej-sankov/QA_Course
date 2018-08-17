@@ -34,5 +34,6 @@ public class SeleniumWaitTest {
         System.out.println(text);
         Assert.assertTrue(text!=null);
         webDriver.quit();
+        
     }
 }
