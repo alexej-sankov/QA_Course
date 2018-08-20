@@ -34,6 +34,29 @@ public class AmazonSearchForProductsTest {
     }
 
     @Test
+    public void amazonSearchForProductsByPriceTest2() throws ParseException {
+        MainPage mainPage = new MainPage(webDriver);
+        mainPage.go2Page();
+        mainPage.init();
+        SearchResultPage page1 = mainPage.performSearchWithEnterHit(KEYWORDS);
+        page1.init();
+        List<WebElement> results1 = getSearchResults();
+        List<Product> products1 = parseResultsToProductsAndFilterByPrice(results1, PRICE_LIMIT);
+
+        page1.clickNextButton();
+        List<WebElement> results2 = getSearchResults();
+        products1.addAll(parseResultsToProductsAndFilterByPrice(results2, PRICE_LIMIT));
+
+        System.out.println(products1.size());
+        products1.stream().forEach(x -> System.out.println(x.toString()));
+
+
+        Assert.assertTrue(products1.size()>0);
+
+
+    }
+
+    @Test
     public void amazonSearchForProductsByPriceTest() throws ParseException {
         go2Page(AMAZON_URl);
         searchForKeyWords(KEYWORDS);
@@ -88,6 +111,7 @@ public class AmazonSearchForProductsTest {
         }
         return products;
     }
+
 
     @After
     public void after() {
